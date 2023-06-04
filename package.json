@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "db:format": "prisma format",
-    "db:migrate": "prisma migrate dev"
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node -P tsconfig-seed.json -r tsconfig-paths/register --transpileOnly prisma/seed.ts"
   },
   "dependencies": {
     "@types/node": "20.2.5",
