@@ -41,7 +41,7 @@ const buttonClasses = cva(
 );
 
 interface Props
-  extends React.HTMLAttributes<HTMLButtonElement>,
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClasses> {}
 
 export const Button: React.FC<Props> = ({ children, className, intent, size, ...props }) => {
