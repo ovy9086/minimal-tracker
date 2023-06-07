@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { ProjectCard } from "../components/ProjectCard";
+import { delay } from "@/lib/async";
+import { TaskCardList } from "../components/TaskCardList";
 
 const getData = async () => {
   const user = await getUserFromCookie(cookies());
@@ -40,7 +42,9 @@ export default async function Page() {
           <div className="w-1/3 p-3">{/* new project here */}</div>
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
-          <div className="w-full">{/* tasks here */}</div>
+          <div className="w-full">
+            <TaskCardList title="Upcoming" />
+          </div>
         </div>
       </div>
     </div>
