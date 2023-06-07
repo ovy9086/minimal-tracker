@@ -3,8 +3,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const jwt = request.cookies.get(process.env.COOKIE_NAME as string);
+  const { pathname } = request.nextUrl;
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/home", request.url));
+  }
 
+  const jwt = request.cookies.get(process.env.COOKIE_NAME as string);
   if (!jwt) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
@@ -19,7 +23,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/home", "/project/:path*"],
+  matcher: ["/home", "/project/:path*", "/"],
 };
 
 const verifyJWT = async (jwt: string) => {

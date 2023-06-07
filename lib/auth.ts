@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { SignJWT, jwtVerify } from "jose";
 import { db } from "./db";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 
@@ -27,10 +28,10 @@ export const validateJWT = async (jwt: string) => {
   return payload.payload as User;
 };
 
-export const getUserFromCookie = async (cookies) => {
-  const jwt = cookies.get(process.env.COOKIE_NAME);
+export const getUserFromCookie = async (cookies: ReadonlyRequestCookies) => {
+  const jwt = cookies.get(process.env.COOKIE_NAME as string);
 
-  const { id } = await validateJWT(jwt.value);
+  const { id } = await validateJWT(jwt?.value ?? "");
 
   const user = await db.user.findUnique({
     where: {
