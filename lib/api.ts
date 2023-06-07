@@ -6,7 +6,7 @@ const fetcher = async ({
 }: {
   url: string;
   method: string;
-  body?: string;
+  body?: Object;
   json: boolean;
 }) => {
   const res = await fetch(url, {
@@ -28,7 +28,12 @@ const fetcher = async ({
   }
 };
 
-export const register = async (user) => {
+export const register = async (user: {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}) => {
   return fetcher({
     url: "/api/register",
     method: "POST",
@@ -37,7 +42,7 @@ export const register = async (user) => {
   });
 };
 
-export const signin = async (user) => {
+export const signin = async (user: { email: string; password: string }) => {
   return fetcher({
     url: "/api/signin",
     method: "POST",
